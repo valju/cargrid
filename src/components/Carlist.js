@@ -17,6 +17,14 @@ export default function Carlist() {
     .catch(err => console.error(err))
   }
 
+  const deleteCar = (link) => {
+    if (window.confirm('Are you sure?')) {
+      fetch(link, {method: 'DELETE'})
+      .then(_ => getCars())
+      .catch(err => console.error(err))
+    }
+  }
+
   const columns = [
     {
       headerName: 'Brand',
@@ -53,8 +61,14 @@ export default function Carlist() {
       field: 'price',
       sortable: true,
       filter: 'agNumberColumnFilter',
+    },
+    {
+      headerName: '',
+      field: '_links.self.href',
+      cellRendererFramework: params => <button onClick={() => deleteCar(params.value)}>Delete</button>
     }
   ]
+
 
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
