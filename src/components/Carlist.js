@@ -31,6 +31,7 @@ export default function Carlist() {
     {
       headerName: 'Brand',
       field: 'brand',
+      sort: 'asc',
       sortable: true,
       filter: true,
     },
@@ -76,7 +77,8 @@ export default function Carlist() {
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
       <AgGridReact disableStaticMarkup={true} 
         floatingFilter={true} 
-        pagination={true} 
+        pagination={true}
+        suppressCellSelection={true} 
         paginationAutoPageSize={true} 
         columnDefs={columns} 
         rowData={cars}>
