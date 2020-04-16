@@ -75,7 +75,8 @@ export default function Carlist() {
 
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
-      <AgGridReact disableStaticMarkup={true} 
+      <AgGridReact 
+        disableStaticMarkup={true} 
         floatingFilter={true} 
         pagination={true}
         suppressCellSelection={true} 
