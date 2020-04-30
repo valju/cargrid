@@ -60,7 +60,7 @@ export default function Carlist() {
       filter: 'agNumberColumnFilter',
     },
     {
-      headerName: 'Price',
+      headerName: 'Price (€)',
       field: 'price',
       sortable: true,
       filter: 'agNumberColumnFilter',
@@ -71,7 +71,6 @@ export default function Carlist() {
       cellRendererFramework: params => <NoSsr><Button color="secondary" size="small" onClick={() => deleteCar(params.value)}>Delete</Button></NoSsr>
     }
   ]
-
 
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
