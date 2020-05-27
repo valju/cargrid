@@ -33,36 +33,42 @@ export default function Carlist() {
       field: 'brand',
       sort: 'asc',
       sortable: true,
+      floatingFilter: true,
       filter: true,
     },
     {
       headerName: 'Model',
       field: 'model',
       sortable: true,
+      floatingFilter: true,
       filter: true,
     },
     {
       headerName: 'Color',
       field: 'color',
       sortable: true,
+      floatingFilter: true,
       filter: true,
     },
     {
       headerName: 'Fuel',
       field: 'fuel',
       sortable: true,
+      floatingFilter: true,
       filter: true,
     },
     {
       headerName: 'Year',
       field: 'year',
       sortable: true,
+      floatingFilter: true,
       filter: 'agNumberColumnFilter',
     },
     {
       headerName: 'Price (€)',
       field: 'price',
       sortable: true,
+      floatingFilter: true,
       filter: 'agNumberColumnFilter',
     },
     {
@@ -75,8 +81,6 @@ export default function Carlist() {
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
       <AgGridReact 
-        disableStaticMarkup={true} 
-        floatingFilter={true} 
         pagination={true}
         suppressCellSelection={true} 
         paginationAutoPageSize={true} 
