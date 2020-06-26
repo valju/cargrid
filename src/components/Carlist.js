@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -7,6 +7,8 @@ import NoSsr from '@material-ui/core/NoSsr';
 
 export default function Carlist() {
   const [cars, setCars] = useState([]);
+
+  const gridRef = useRef();
 
   useEffect(() => {
     getCars();
@@ -81,9 +83,15 @@ export default function Carlist() {
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
       <AgGridReact 
+        ref={gridRef}
+        onGridReady={ params => { 
+          gridRef.current = params.api;
+          params.api.sizeColumnsToFit();
+        }}
         pagination={true}
         suppressCellSelection={true} 
         paginationAutoPageSize={true} 
+        animateRows={true}
         columnDefs={columns} 
         rowData={cars}>
       </AgGridReact>
