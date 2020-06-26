@@ -29,6 +29,10 @@ export default function Carlist() {
     }
   }
 
+  const exportData = () => {
+    gridRef.current.exportDataAsCsv({columnSeparator: ';'});
+  }
+
   const columns = [
     {
       headerName: 'Brand',
@@ -82,6 +86,7 @@ export default function Carlist() {
 
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
+      <button onClick={exportData}>Export</button>
       <AgGridReact 
         ref={gridRef}
         onGridReady={ params => { 
