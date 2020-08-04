@@ -24,7 +24,7 @@ export default function Carlist() {
   const deleteCar = (link) => {
     if (window.confirm('Are you sure?')) {
       fetch(link, {method: 'DELETE'})
-      .then(_ => getCars())
+      .then(_ => gridRef.current.redrawRows({ rowNodes: getCars()}))
       .catch(err => console.error(err))
     }
   }
