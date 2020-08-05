@@ -57,11 +57,13 @@ export default function Carlist() {
   }
 
   const exportData = () => {
-    gridRef.current.exportDataAsCsv({columnSeparator: ';'});
+    gridRef.current.exportDataAsCsv({columnSeparator: ';', columnKeys: ['brand', 'model', 'color', 'year', 'fuel', 'price']});
   }
 
+  // colId is needed to filter exported columns (see exportData)
   const columns = [
     {
+      colId: 'brand',
       headerName: 'Brand',
       field: 'brand',
       sort: 'asc',
@@ -70,6 +72,7 @@ export default function Carlist() {
       filter: true,
     },
     {
+      colId: 'model',
       headerName: 'Model',
       field: 'model',
       sortable: true,
@@ -77,6 +80,7 @@ export default function Carlist() {
       filter: true,
     },
     {
+      colId: 'color',
       headerName: 'Color',
       field: 'color',
       sortable: true,
@@ -84,6 +88,7 @@ export default function Carlist() {
       filter: true,
     },
     {
+      colId: 'fuel',
       headerName: 'Fuel',
       field: 'fuel',
       sortable: true,
@@ -91,6 +96,7 @@ export default function Carlist() {
       filter: true,
     },
     {
+      colId: 'year',
       headerName: 'Year',
       field: 'year',
       sortable: true,
@@ -98,6 +104,7 @@ export default function Carlist() {
       filter: 'agNumberColumnFilter',
     },
     {
+      colId: 'price',
       headerName: 'Price (€)',
       field: 'price',
       sortable: true,
