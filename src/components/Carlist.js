@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import Addcar from './Addcar';
 import Editcar from './Editcar';
@@ -119,8 +120,14 @@ export default function Carlist() {
 
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
-      <Addcar addCar={addCar} />
-      <button onClick={exportData}>Export</button>
+      <Grid container spacing={2}>
+        <Grid item xs={2}>
+          <Addcar addCar={addCar} />
+        </Grid>
+        <Grid item xs={2}>
+          <Button onClick={exportData} style={{marginTop: 10, marginBottom: 10}}>Export</Button>
+        </Grid>
+      </Grid>
       <AgGridReact 
         ref={gridRef}
         onGridReady={ params => { 
