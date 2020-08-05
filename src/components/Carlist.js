@@ -3,7 +3,8 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@material-ui/core/Button';
-import NoSsr from '@material-ui/core/NoSsr';
+
+import Editcar from './Editcar';
 
 export default function Carlist() {
   const [cars, setCars] = useState([]);
@@ -29,9 +30,16 @@ export default function Carlist() {
     }
   }
 
-  const editCar = (car) => {
-    // car.data = car, car.value=link
-    console.log(car);
+  const editCar = (link, car) => {
+    fetch(link, 
+      { method: 'PUT', 
+        headers: {
+          'Content-Type': 'application/json',
+      },
+        body: JSON.stringify(car)
+      })
+      .then(res => gridRef.current.redrawRows({rowNodes: getCars()}))
+      .catch( err => console.error(err))
   }
 
   const exportData = () => {
@@ -86,13 +94,13 @@ export default function Carlist() {
       headerName: '',
       field: '_links.self.href',
       width: 100,
-      cellRendererFramework: params => <NoSsr><Button color="primary" size="small" onClick={() => editCar(params)}>Edit</Button></NoSsr>
+      cellRendererFramework: params => <Editcar car={params.data} link={params.value} editCar={editCar}/>
     },
     {
       headerName: '',
       field: '_links.self.href',
       width: 100,
-      cellRendererFramework: params => <NoSsr><Button color="secondary" size="small" onClick={() => deleteCar(params.value)}>Delete</Button></NoSsr>
+      cellRendererFramework: params => <Button color="secondary" size="small" onClick={() => deleteCar(params.value)}>Delete</Button>
     }
   ]
 
