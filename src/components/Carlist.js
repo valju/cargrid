@@ -4,6 +4,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@material-ui/core/Button';
 
+import Addcar from './Addcar';
 import Editcar from './Editcar';
 
 export default function Carlist() {
@@ -28,6 +29,18 @@ export default function Carlist() {
       .then(_ => gridRef.current.redrawRows({ rowNodes: getCars()}))
       .catch(err => console.error(err))
     }
+  }
+
+  const addCar = (car) => {
+    fetch('https://carstockrest.herokuapp.com/cars', 
+    {   method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(car)
+    })
+    .then(_ => gridRef.current.redrawRows({ rowNodes: getCars()}))
+    .catch(err => console.error(err))
   }
 
   const editCar = (link, car) => {
@@ -106,6 +119,7 @@ export default function Carlist() {
 
   return(
     <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
+      <Addcar addCar={addCar} />
       <button onClick={exportData}>Export</button>
       <AgGridReact 
         ref={gridRef}
