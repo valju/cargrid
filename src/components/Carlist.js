@@ -29,6 +29,11 @@ export default function Carlist() {
     }
   }
 
+  const editCar = (car) => {
+    // car.data = car, car.value=link
+    console.log(car);
+  }
+
   const exportData = () => {
     gridRef.current.exportDataAsCsv({columnSeparator: ';'});
   }
@@ -80,6 +85,13 @@ export default function Carlist() {
     {
       headerName: '',
       field: '_links.self.href',
+      width: 100,
+      cellRendererFramework: params => <NoSsr><Button color="primary" size="small" onClick={() => editCar(params)}>Edit</Button></NoSsr>
+    },
+    {
+      headerName: '',
+      field: '_links.self.href',
+      width: 100,
       cellRendererFramework: params => <NoSsr><Button color="secondary" size="small" onClick={() => deleteCar(params.value)}>Delete</Button></NoSsr>
     }
   ]
