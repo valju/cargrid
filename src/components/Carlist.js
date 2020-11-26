@@ -4,6 +4,8 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Addcar from './Addcar';
 import Editcar from './Editcar';
@@ -115,19 +117,23 @@ export default function Carlist() {
     {
       headerName: '',
       field: '_links.self.href',
-      width: 100,
+      width: 80,
       cellRendererFramework: params => <Editcar car={params.data} link={params.value} editCar={editCar}/>
     },
     {
       headerName: '',
       field: '_links.self.href',
-      width: 100,
-      cellRendererFramework: params => <Button color="secondary" size="small" onClick={() => deleteCar(params.value)}>Delete</Button>
+      width: 80,
+      cellRendererFramework: params => <IconButton 
+                                          color="secondary" 
+                                          onClick={() => deleteCar(params.value)}>
+                                            <DeleteIcon fontSize="small" />
+                                        </IconButton>
     }
   ]
 
   return(
-    <div className="ag-theme-material" style={{height: '700px', width: '100%'}}>
+    <div className="ag-theme-material" style={{height: '600px', width: '100%'}}>
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <Addcar addCar={addCar} />
