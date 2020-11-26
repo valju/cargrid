@@ -9,6 +9,7 @@ import Addcar from './Addcar';
 import Editcar from './Editcar';
 
 export default function Carlist() {
+  const API_URL = 'https://carstockrest.herokuapp.com/cars';
   const [cars, setCars] = useState([]);
 
   const gridRef = useRef();
@@ -18,7 +19,7 @@ export default function Carlist() {
   }, [])
 
   const getCars = () => {
-    fetch('https://carstockrest.herokuapp.com/cars')
+    fetch(API_URL)
     .then(response => response.json())
     .then(data => setCars(data._embedded.cars))
     .catch(err => console.error(err))
@@ -33,7 +34,7 @@ export default function Carlist() {
   }
 
   const addCar = (car) => {
-    fetch('https://carstockrest.herokuapp.com/cars', 
+    fetch(API_URL, 
     {   method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
