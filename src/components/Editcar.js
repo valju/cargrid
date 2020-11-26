@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Editcar = (props) => {  
   const [open, setOpen] = useState(false);
@@ -60,9 +61,11 @@ const Editcar = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <IconButton color="primary" onClick={() => handleClickOpen()}>
-        <EditIcon fontSize="small" />
-      </IconButton>
+      <Tooltip title="Edit">
+        <IconButton color="primary" onClick={() => handleClickOpen()}>
+          <EditIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
     </div>
   );  
 }

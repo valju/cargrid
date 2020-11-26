@@ -6,13 +6,17 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import Addcar from './Addcar';
 import Editcar from './Editcar';
 
 export default function Carlist() {
   const API_URL = 'https://carstockrest.herokuapp.com/cars';
+
   const [cars, setCars] = useState([]);
+  const [open, setOpen] = React.useState(false);
 
   const gridRef = useRef();
 
@@ -31,6 +35,7 @@ export default function Carlist() {
     if (window.confirm('Are you sure?')) {
       fetch(link, {method: 'DELETE'})
       .then(_ => gridRef.current.redrawRows({ rowNodes: getCars()}))
+      .then(_ => setOpen(true))
       .catch(err => console.error(err))
     }
   }
@@ -62,6 +67,11 @@ export default function Carlist() {
   const exportData = () => {
     gridRef.current.exportDataAsCsv({columnSeparator: ';', columnKeys: ['brand', 'model', 'color', 'year', 'fuel', 'price']});
   }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   // colId is needed to filter exported columns (see exportData)
   const columns = [
@@ -124,11 +134,13 @@ export default function Carlist() {
       headerName: '',
       field: '_links.self.href',
       width: 80,
-      cellRendererFramework: params => <IconButton 
+      cellRendererFramework: params => <Tooltip title="Delete">
+                                        <IconButton 
                                           color="secondary" 
                                           onClick={() => deleteCar(params.value)}>
                                             <DeleteIcon fontSize="small" />
                                         </IconButton>
+                                      </Tooltip>
     }
   ]
 
@@ -139,7 +151,9 @@ export default function Carlist() {
           <Addcar addCar={addCar} />
         </Grid>
         <Grid item xs={2}>
-          <Button onClick={exportData} style={{marginTop: 10, marginBottom: 10}}>Export</Button>
+          <Tooltip title="Export to CSV">
+            <Button onClick={exportData} style={{marginTop: 10, marginBottom: 10}}>Export</Button>
+          </Tooltip>
         </Grid>
       </Grid>
       <AgGridReact 
@@ -155,6 +169,12 @@ export default function Carlist() {
         columnDefs={columns} 
         rowData={cars}>
       </AgGridReact>
+      <Snackbar 
+        open={open}
+        autoHideDuration={2500}
+        onClose={handleClose}
+        message="Car deleted"
+      />
     </div>
   );
 }
